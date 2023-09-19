@@ -3,6 +3,7 @@ import { CarProps } from "@/types";
 import Image from "next/image";
 import { useState } from "react";
 import { CustomButton } from ".";
+import { calculateCarRent } from "@/utils";
 
 interface carCardProps {
   car: CarProps;
@@ -11,6 +12,8 @@ interface carCardProps {
 const CarCard = ({ car }: carCardProps) => {
   const { city_mpg, make, model, transmission, drive, year } = car;
 
+  const carRent = calculateCarRent(city_mpg, year);
+
   return (
     <div className="car-card group">
       <div className="car-card__content">
@@ -18,9 +21,46 @@ const CarCard = ({ car }: carCardProps) => {
           {make} {model}
         </h2>
       </div>
-      <p>
-        <span>Car Rent...</span>
+      <p className="flex mt-6 text-[32px] font-extrabold">
+        <span className="self-start text-[14px] font-semibold">$</span>
+        {carRent}
+        <span className="self-end text-[14px] font-medium">/day</span>
       </p>
+
+      <div className="relative w-full h-40 my-3 object-contain">
+        <Image
+          src="/hero.png"
+          className="object-contain"
+          fill
+          priority
+          alt="car model"
+        />
+      </div>
+      <div className="relative flex w-full mt-2">
+        <div className="flex group-hover:invisible w-full justify-between text-gray">
+          <div className="flex flex-col justify-center items-center gap-2">
+            <Image
+              src="/steering-wheel.svg"
+              width={20}
+              height={20}
+              alt="steeing wheel"
+            />
+            <p className="text-[14px]">
+              {transmission === "a" ? "Automatic" : "Manual"}
+            </p>
+          </div>
+          <div className="flex flex-col justify-center items-center gap-2">
+            <Image src="/tire.svg" width={20} height={20} alt="tire" />
+            <p className="text-[14px]">{drive.toUpperCase()}</p>
+          </div>
+          <div className="flex flex-col justify-center items-center gap-2">
+            <Image src="/gas.svg" width={20} height={20} alt="gas" />
+            <p className="text-[14px]">
+              {city_mpg} MPG | {Math.round(city_mpg * 0.425144)} KM/L
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
