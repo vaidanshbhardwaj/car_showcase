@@ -1,3 +1,5 @@
+## Had to abandon in between, needed a business email for an API, will finish soon
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
